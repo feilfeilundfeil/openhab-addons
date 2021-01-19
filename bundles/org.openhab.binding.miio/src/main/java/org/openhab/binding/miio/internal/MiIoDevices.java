@@ -206,6 +206,7 @@ public enum MiIoDevices {
     VIOMI_VACUUM_V6("viomi.vacuum.v6", "Viomi Cleaning Robot V-RVCLM21B", THING_TYPE_BASIC),
     VIOMI_VACUUM_V7("viomi.vacuum.v7", "Mi Robot Vacuum-Mop P", THING_TYPE_BASIC),
     VIOMI_VACUUM_V8("viomi.vacuum.v8", "Mi Robot Vacuum-Mop P", THING_TYPE_BASIC),
+    VIOMI_VACUUM_V18("viomi.vacuum.v18", "Viomi S9", THING_TYPE_BASIC),
     ROBOROCK_SWEEPER_E2V2("roborock.sweeper.e2v2", "Rockrobo Xiaowa Sweeper v2", THING_TYPE_UNSUPPORTED),
     ROBOROCK_SWEEPER_E2V3("roborock.sweeper.e2v3", "Rockrobo Xiaowa Sweeper v3", THING_TYPE_UNSUPPORTED),
     S090615_SWITCH_XSWITCH01("090615.switch.xswitch01", "PTX OneKey Switch (WIFI)", THING_TYPE_BASIC),
