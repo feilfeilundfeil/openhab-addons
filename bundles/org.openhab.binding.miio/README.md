@@ -32,6 +32,7 @@ Go to the binding config page and enter your cloud username and password.
 The server(s) to which your devices are connected need to be entered as well. 
 Use the one of the regional servers: cn,de,i2,tw,ru,sg,us.
 Multiple servers can be separated with comma, or leave blank to test all known servers.
+See [binding configuration](#binding-configuration) for more details about the binding config.
 
 ## Tokens without cloud access
 
@@ -51,12 +52,18 @@ Note. The Xiaomi devices change the token when inclusion is done. Hence if you g
 ## Binding Configuration
 
 No binding configuration is required. However to enable cloud functionality enter your Xiaomi username, password and server(s).
-The list of the known countries and related severs is [here](#Country-Servers).
+The list of the known countries and related severs is [here](#country-servers).
 
 After successful Xiaomi cloud login, the binding will use the connection to retrieve the required device tokens from the cloud. 
 For Xiaomi vacuums the map can be visualized in openHAB using the cloud connection.
 
+To enter your cloud details go to the bindings page, click the Xiaomi Mi IO binding and than configure.
 ![Binding Config](doc/miioBindingConfig.jpg)
+
+In the configuration page, enter your userID /passwd and county(s) or leave the countries servers blank.
+![Binding Config](doc/miioBindingConfig2.jpg)
+
+The binding also supports the discovery of devices via the cloud. This may be useful if the device is on a separate subnet. (note, after accepting such a device on a different subnet, the communication needs to be set to cloud in order to have it working.)
 
 ## Thing Configuration
 
@@ -115,8 +122,8 @@ After validation, please share the logfile and json files on the openHAB forum o
 Things using the basic handler (miio:basic things) are driven by json 'database' files.
 This instructs the binding which channels to create, which properties and actions are associated with the channels etc.
 The conf/misc/miio (e.g. in Linux `/opt/openhab/conf/misc/miio/`) is scanned for database files and will be used for your devices. 
-During the start of the binding the exact path used in your system will be printed in the debug log. 
-Watch for a line containing `Started miio basic devices local databases watch service. Watching for database files at path: …`
+During the start of the binding the exact path used in your system will be printed in the _debug_ log. 
+Watch for a line containing `Started miio basic devices local databases watch service. Watching for database files at path: …` (
 If this folder is created after the start of the binding, you may need to restart the binding (or openHAB) to be able to use the local files. 
 Note that local database files take preference over build-in ones, hence if a json file is local and in the database the local file will be used. 
 For format, please check the current database files in openHAB GitHub.
@@ -349,6 +356,7 @@ Currently the miio binding supports more than 260 different models.
 | Viomi Cleaning Robot V-RVCLM21B | miio:basic       | [viomi.vacuum.v6](#viomi-vacuum-v6) | Yes       |            |
 | Mi Robot Vacuum-Mop P        | miio:basic       | [viomi.vacuum.v7](#viomi-vacuum-v7) | Yes       |            |
 | Mi Robot Vacuum-Mop P        | miio:basic       | [viomi.vacuum.v8](#viomi-vacuum-v8) | Yes       |            |
+| Viomi S9                     | miio:basic       | [viomi.vacuum.v18](#viomi-vacuum-v18) | Yes       | Identified manual actions for execution<br />`action{"did":"vacuum-start-sweep","siid":2,"aiid":1,"in":[]}`<br />`action{"did":"vacuum-stop-sweeping","siid":2,"aiid":2,"in":[]}`<br />`action{"did":"vacuum-pause","siid":2,"aiid":3,"in":[]}`<br />`action{"did":"vacuum-start-charge","siid":2,"aiid":4,"in":[]}`<br />`action{"did":"vacuum-stop-massage","siid":2,"aiid":5,"in":[]}`<br />`action{"did":"vacuum-start-mop","siid":2,"aiid":6,"in":[]}`<br />`action{"did":"vacuum-start-only-sweep","siid":2,"aiid":7,"in":[]}`<br />`action{"did":"vacuum-start-sweep-mop","siid":2,"aiid":8,"in":[]}`<br />`action{"did":"viomi-vacuum-reset-map","siid":4,"aiid":7,"in":[]}`<br />`action{"did":"viomi-vacuum-set-calibration","siid":4,"aiid":10,"in":[]}`<br />`action{"did":"viomi-vacuum-reset-consumable","siid":4,"aiid":11,"in":[35.0]}`<br />`action{"did":"viomi-vacuum-set-room-clean","siid":4,"aiid":13,"in":[36.0, 37.0, 38.0]}`<br />`action{"did":"order-del","siid":5,"aiid":2,"in":[1.0]}`<br />`action{"did":"order-get","siid":5,"aiid":3,"in":[]}`<br />`action{"did":"point-zone-start-point-clean","siid":6,"aiid":1,"in":[]}`<br />`action{"did":"point-zone-pause-point-clean","siid":6,"aiid":2,"in":[]}`<br />`action{"did":"point-zone-start-zone-clean","siid":6,"aiid":5,"in":[]}`<br />`action{"did":"point-zone-pause-zone-clean","siid":6,"aiid":6,"in":[]}`<br />`action{"did":"map-upload-by-maptype","siid":7,"aiid":1,"in":[]}`<br />`action{"did":"map-upload-by-mapid","siid":7,"aiid":2,"in":[]}`<br />`action{"did":"map-set-cur-map","siid":7,"aiid":3,"in":[2.0, 15.0]}`<br />`action{"did":"map-del-map","siid":7,"aiid":5,"in":[2.0]}`<br />`action{"did":"map-rename-map","siid":7,"aiid":7,"in":[2.0, 4.0]}`<br />`action{"did":"map-arrange-room","siid":7,"aiid":8,"in":[2.0, 5.0, 6.0, 14.0]}`<br />`action{"did":"map-split-room","siid":7,"aiid":9,"in":[2.0, 5.0, 7.0, 8.0, 14.0]}`<br />`action{"did":"map-rename-room","siid":7,"aiid":10,"in":[2.0, 7.0, 9.0, 14.0]}`<br />`action{"did":"map-get-map-list","siid":7,"aiid":11,"in":[]}`<br />`action{"did":"map-get-cleaning-path","siid":7,"aiid":12,"in":[12.0]}`<br />`action{"did":"map-set-new-map","siid":7,"aiid":13,"in":[]}`<br />`action{"did":"map-deal-new-map","siid":7,"aiid":14,"in":[16.0]}`<br />`action{"did":"voice-find-device","siid":8,"aiid":2,"in":[]}`<br />`action{"did":"voice-download-voice","siid":8,"aiid":3,"in":[3.0, 7.0, 8.0]}`<br />`action{"did":"voice-get-downloadstatus","siid":8,"aiid":4,"in":[]}`<br />Please test and feedback if they are working to they can be linked to a channel.<br />Experimental support. Please report back if all channels are functional. Preferably share the debug log of property refresh and command responses |
 | Rockrobo Xiaowa Sweeper v2   | miio:unsupported | roborock.sweeper.e2v2  | No        |            |
 | Rockrobo Xiaowa Sweeper v3   | miio:unsupported | roborock.sweeper.e2v3  | No        |            |
 | PTX OneKey Switch (WIFI)     | miio:basic       | [090615.switch.xswitch01](#090615-switch-xswitch01) | Yes       |            |
@@ -2501,6 +2509,70 @@ e.g. `openhab:send actionCommand 'upd_timer["1498595904821", "on"]'` would enabl
 | has_map          | Number  | has_map                             |            |
 | is_mop           | Number  | is_mop                              |            |
 | has_newmap       | Number  | has_newmap                          |            |
+
+### Viomi S9 (<a name="viomi-vacuum-v18">viomi.vacuum.v18</a>) Channels
+
+| Channel          | Type    | Description                         | Comment    |
+|------------------|---------|-------------------------------------|------------|
+| status           | Number  | Robot Cleaner - Status              | Value mapping ["0"="Sleep","1"="Idle","2"="Paused","3"="Go Charging","4"="Charging","5"="Sweeping","6"="Sweeping and Mopping","7"="Mopping"] |
+| fault            | Number  | Robot Cleaner - Device Fault        | Value mapping ["0"="No Error","1"="Low Battery Find Charge","2"="Low Bat Need Poweroff","3"="Wheel Trap","4"="Collision Error","5"="Tile Do Task","6"="Lidar Point Err","7"="Front Wall Err","8"="Along Wall Err","9"="Mid Brush Err","10"="Side Brush Err","11"="Fan Err","12"="Lidar Cover","13"="Garbage Full","14"="Garbage Out","15"="Garbage Full Out","16"="Trapped","17"="Pick Up","20"="Cannot Arrive","21"="Start From Forbid","22"="Drop","23"="Kit Water Pump","24"="Find Charge Failed","18"="Garbage Out","25"="No Mop Clean","26"="Low Battery Cant Clean"] |
+| wdr-mode         | Number  | Robot Cleaner - Wide Dynamic Range Mode | Value mapping ["0"="0","1"="1","2"="2"] |
+| door-state       | Number  | Robot Cleaner - Door State          | Value mapping ["0"="0","1"="1","2"="2","3"="3"] |
+| contact-state    | Number  | Robot Cleaner - Contact State       | Value mapping ["0"="0","1"="1"] |
+| contact-state1   | Number:Time | Robot Cleaner - Contact State       |            |
+| contact-state2   | Number  | Robot Cleaner - Contact State       |            |
+| mute             | Number  | Robot Cleaner - Mute                |            |
+| sweep-type       | Number  | Robot Cleaner - Sweep Type          | Value mapping ["0"="Total","2"="Wall","3"="Zone","4"="Point","5"="Control"] |
+| mode             | Number  | Robot Cleaner - Mode                | Value mapping ["0"="Silent","1"="Basic","2"="Medium","3"="Strong"] |
+| battery-level    | Number:Dimensionless | Battery - Battery Level             |            |
+| repeat-state     | Number  | Viomi Vacuum - Repeat State         | Value mapping ["0"="关","1"="开"] |
+| remember-state   | Number  | Viomi Vacuum - Remember State       | Value mapping ["0"="关","1"="开"] |
+| mop-route        | Number  | Viomi Vacuum - Mop Route            | Value mapping ["0"="弓字形","1"="Y字形"] |
+| side-brush-life  | Number:Dimensionless | Viomi Vacuum - Side Brush Life      |            |
+| side-brush-hours | Number:Time | Viomi Vacuum - Side Brush Hours     |            |
+| main-brush-life  | Number:Dimensionless | Viomi Vacuum - Main Brush Life      |            |
+| main-brush-hours | Number:Time | Viomi Vacuum - Main Brush Hours     |            |
+| hypa-life        | Number:Dimensionless | Viomi Vacuum - Hypa Life            |            |
+| hypa-hours       | Number:Time | Viomi Vacuum - Hypa Hours           |            |
+| mop-life         | Number:Dimensionless | Viomi Vacuum - Mop Life             |            |
+| mop-hours        | Number:Time | Viomi Vacuum - Mop Hours            |            |
+| suction-grade    | Number  | Viomi Vacuum - Suction Grade        | Value mapping ["0"="安静","1"="标准","2"="中档","3"="强力"] |
+| water-grade      | Number  | Viomi Vacuum - Water Grade          | Value mapping ["0"="1挡","1"="2挡","2"="3挡"] |
+| map-num          | Number  | Viomi Vacuum - Map Num              |            |
+| time-zone        | Number  | Viomi Vacuum - Time Zone            |            |
+| clean-start-time | Number:Time | Viomi Vacuum - Clean Start Time     |            |
+| clean-use-time   | Number:Time | Viomi Vacuum - Clean Use Time       |            |
+| clean-area       | Number  | Viomi Vacuum - Clean Area           |            |
+| clean-map-url    | String  | Viomi Vacuum - Clean Map Url        |            |
+| clean-mode       | Number  | Viomi Vacuum - Clean Mode           | Value mapping ["0"="全局","1"="沿边","2"="区域","3"="定点"] |
+| clean-way        | Number  | Viomi Vacuum - Clean Way            | Value mapping ["0"="扫地","1"="扫拖","2"="拖地"] |
+| cur-lang         | String  | Viomi Vacuum - Cur Lang             |            |
+| cur-map-id       | Number  | Viomi Vacuum - Cur Map Id           |            |
+| cur-map-url      | String  | Viomi Vacuum - Cur Map Url          |            |
+| last-update-time | Number:Time | Viomi Vacuum - Last Update Time     |            |
+| has-map          | Number  | Viomi Vacuum - Has Map              | Value mapping ["0"="没有记忆图","1"="有记忆图"] |
+| has-newmap       | Number  | Viomi Vacuum - Has Newmap           | Value mapping ["0"="None","1"="New","2"="Cover"] |
+| dust-collection  | Number  | Viomi Vacuum - Dust Collection      | Value mapping ["0"="Close","1"="Open"] |
+| dnd-enable       | Number  | Order - Dnd Enable                  | Value mapping ["0"="","1"=""] |
+| dnd-start-hour   | Number:Time | Order - Dnd Start Hour              |            |
+| dnd-start-minute | Number:Time | Order - Dnd Start Minute            |            |
+| dnd-end-hour     | Number:Time | Order - Dnd End Hour                |            |
+| dnd-end-minute   | Number:Time | Order - Dnd End Minute              |            |
+| dnd-timezone     | Number  | Order - Dnd Timezone                |            |
+| timestamp        | Number  | Order - Timestamp                   |            |
+| orderdata        | String  | Order - Orderdata                   |            |
+| target-point     | String  | Point Zone - Target Point           |            |
+| map-type         | Number  | Map - Map Type                      | Value mapping ["0"="上传到url0","1"="上传到url1","2"="上传到url2"] |
+| map-id           | Number  | Map - Map Id                        |            |
+| map-name         | String  | Map - Map Name                      |            |
+| cur-cleaning-path | String  | Map - Cur Cleaning Path             |            |
+| map-list         | String  | Map - Map List                      |            |
+| oper-result      | String  | Map - Oper Result                   |            |
+| auto-area-id     | Number  | Map - Auto Area Id                  |            |
+| target-voice     | String  | Voice - Target Voice                |            |
+| cur-voice        | String  | Voice - Cur Voice                   |            |
+| download-status  | Number  | Voice - Download Status             | Value mapping ["0"="Free","1"="Downloading"] |
+| download-progress | Number  | Voice - Download Progress           |            |
 
 ### PTX OneKey Switch (WIFI) (<a name="090615-switch-xswitch01">090615.switch.xswitch01</a>) Channels
 
@@ -6843,6 +6915,73 @@ Number is_mop "is_mop" (G_vacuum) {channel="miio:basic:vacuum:is_mop"}
 Number has_newmap "has_newmap" (G_vacuum) {channel="miio:basic:vacuum:has_newmap"}
 ```
 
+### Viomi S9 (viomi.vacuum.v18) item file lines
+
+note: Autogenerated example. Replace the id (vacuum) in the channel with your own. Replace `basic` with `generic` in the thing UID depending on how your thing was discovered.
+
+```java
+Group G_vacuum "Viomi S9" <status>
+Number status "Robot Cleaner - Status" (G_vacuum) {channel="miio:basic:vacuum:status"}
+Number fault "Robot Cleaner - Device Fault" (G_vacuum) {channel="miio:basic:vacuum:fault"}
+Number wdr_mode "Robot Cleaner - Wide Dynamic Range Mode" (G_vacuum) {channel="miio:basic:vacuum:wdr-mode"}
+Number door_state "Robot Cleaner - Door State" (G_vacuum) {channel="miio:basic:vacuum:door-state"}
+Number contact_state "Robot Cleaner - Contact State" (G_vacuum) {channel="miio:basic:vacuum:contact-state"}
+Number:Time contact_state1 "Robot Cleaner - Contact State" (G_vacuum) {channel="miio:basic:vacuum:contact-state1"}
+Number contact_state2 "Robot Cleaner - Contact State" (G_vacuum) {channel="miio:basic:vacuum:contact-state2"}
+Number mute "Robot Cleaner - Mute" (G_vacuum) {channel="miio:basic:vacuum:mute"}
+Number sweep_type "Robot Cleaner - Sweep Type" (G_vacuum) {channel="miio:basic:vacuum:sweep-type"}
+Number mode "Robot Cleaner - Mode" (G_vacuum) {channel="miio:basic:vacuum:mode"}
+Number:Dimensionless battery_level "Battery - Battery Level" (G_vacuum) {channel="miio:basic:vacuum:battery-level"}
+Number repeat_state "Viomi Vacuum - Repeat State" (G_vacuum) {channel="miio:basic:vacuum:repeat-state"}
+Number remember_state "Viomi Vacuum - Remember State" (G_vacuum) {channel="miio:basic:vacuum:remember-state"}
+Number mop_route "Viomi Vacuum - Mop Route" (G_vacuum) {channel="miio:basic:vacuum:mop-route"}
+Number:Dimensionless side_brush_life "Viomi Vacuum - Side Brush Life" (G_vacuum) {channel="miio:basic:vacuum:side-brush-life"}
+Number:Time side_brush_hours "Viomi Vacuum - Side Brush Hours" (G_vacuum) {channel="miio:basic:vacuum:side-brush-hours"}
+Number:Dimensionless main_brush_life "Viomi Vacuum - Main Brush Life" (G_vacuum) {channel="miio:basic:vacuum:main-brush-life"}
+Number:Time main_brush_hours "Viomi Vacuum - Main Brush Hours" (G_vacuum) {channel="miio:basic:vacuum:main-brush-hours"}
+Number:Dimensionless hypa_life "Viomi Vacuum - Hypa Life" (G_vacuum) {channel="miio:basic:vacuum:hypa-life"}
+Number:Time hypa_hours "Viomi Vacuum - Hypa Hours" (G_vacuum) {channel="miio:basic:vacuum:hypa-hours"}
+Number:Dimensionless mop_life "Viomi Vacuum - Mop Life" (G_vacuum) {channel="miio:basic:vacuum:mop-life"}
+Number:Time mop_hours "Viomi Vacuum - Mop Hours" (G_vacuum) {channel="miio:basic:vacuum:mop-hours"}
+Number suction_grade "Viomi Vacuum - Suction Grade" (G_vacuum) {channel="miio:basic:vacuum:suction-grade"}
+Number water_grade "Viomi Vacuum - Water Grade" (G_vacuum) {channel="miio:basic:vacuum:water-grade"}
+Number map_num "Viomi Vacuum - Map Num" (G_vacuum) {channel="miio:basic:vacuum:map-num"}
+Number time_zone "Viomi Vacuum - Time Zone" (G_vacuum) {channel="miio:basic:vacuum:time-zone"}
+Number:Time clean_start_time "Viomi Vacuum - Clean Start Time" (G_vacuum) {channel="miio:basic:vacuum:clean-start-time"}
+Number:Time clean_use_time "Viomi Vacuum - Clean Use Time" (G_vacuum) {channel="miio:basic:vacuum:clean-use-time"}
+Number clean_area "Viomi Vacuum - Clean Area" (G_vacuum) {channel="miio:basic:vacuum:clean-area"}
+String clean_map_url "Viomi Vacuum - Clean Map Url" (G_vacuum) {channel="miio:basic:vacuum:clean-map-url"}
+Number clean_mode "Viomi Vacuum - Clean Mode" (G_vacuum) {channel="miio:basic:vacuum:clean-mode"}
+Number clean_way "Viomi Vacuum - Clean Way" (G_vacuum) {channel="miio:basic:vacuum:clean-way"}
+String cur_lang "Viomi Vacuum - Cur Lang" (G_vacuum) {channel="miio:basic:vacuum:cur-lang"}
+Number cur_map_id "Viomi Vacuum - Cur Map Id" (G_vacuum) {channel="miio:basic:vacuum:cur-map-id"}
+String cur_map_url "Viomi Vacuum - Cur Map Url" (G_vacuum) {channel="miio:basic:vacuum:cur-map-url"}
+Number:Time last_update_time "Viomi Vacuum - Last Update Time" (G_vacuum) {channel="miio:basic:vacuum:last-update-time"}
+Number has_map "Viomi Vacuum - Has Map" (G_vacuum) {channel="miio:basic:vacuum:has-map"}
+Number has_newmap "Viomi Vacuum - Has Newmap" (G_vacuum) {channel="miio:basic:vacuum:has-newmap"}
+Number dust_collection "Viomi Vacuum - Dust Collection" (G_vacuum) {channel="miio:basic:vacuum:dust-collection"}
+Number dnd_enable "Order - Dnd Enable" (G_vacuum) {channel="miio:basic:vacuum:dnd-enable"}
+Number:Time dnd_start_hour "Order - Dnd Start Hour" (G_vacuum) {channel="miio:basic:vacuum:dnd-start-hour"}
+Number:Time dnd_start_minute "Order - Dnd Start Minute" (G_vacuum) {channel="miio:basic:vacuum:dnd-start-minute"}
+Number:Time dnd_end_hour "Order - Dnd End Hour" (G_vacuum) {channel="miio:basic:vacuum:dnd-end-hour"}
+Number:Time dnd_end_minute "Order - Dnd End Minute" (G_vacuum) {channel="miio:basic:vacuum:dnd-end-minute"}
+Number dnd_timezone "Order - Dnd Timezone" (G_vacuum) {channel="miio:basic:vacuum:dnd-timezone"}
+Number timestamp "Order - Timestamp" (G_vacuum) {channel="miio:basic:vacuum:timestamp"}
+String orderdata "Order - Orderdata" (G_vacuum) {channel="miio:basic:vacuum:orderdata"}
+String target_point "Point Zone - Target Point" (G_vacuum) {channel="miio:basic:vacuum:target-point"}
+Number map_type "Map - Map Type" (G_vacuum) {channel="miio:basic:vacuum:map-type"}
+Number map_id "Map - Map Id" (G_vacuum) {channel="miio:basic:vacuum:map-id"}
+String map_name "Map - Map Name" (G_vacuum) {channel="miio:basic:vacuum:map-name"}
+String cur_cleaning_path "Map - Cur Cleaning Path" (G_vacuum) {channel="miio:basic:vacuum:cur-cleaning-path"}
+String map_list "Map - Map List" (G_vacuum) {channel="miio:basic:vacuum:map-list"}
+String oper_result "Map - Oper Result" (G_vacuum) {channel="miio:basic:vacuum:oper-result"}
+Number auto_area_id "Map - Auto Area Id" (G_vacuum) {channel="miio:basic:vacuum:auto-area-id"}
+String target_voice "Voice - Target Voice" (G_vacuum) {channel="miio:basic:vacuum:target-voice"}
+String cur_voice "Voice - Cur Voice" (G_vacuum) {channel="miio:basic:vacuum:cur-voice"}
+Number download_status "Voice - Download Status" (G_vacuum) {channel="miio:basic:vacuum:download-status"}
+Number download_progress "Voice - Download Progress" (G_vacuum) {channel="miio:basic:vacuum:download-progress"}
+```
+
 ### PTX OneKey Switch (WIFI) (090615.switch.xswitch01) item file lines
 
 note: Autogenerated example. Replace the id (switch) in the channel with your own. Replace `basic` with `generic` in the thing UID depending on how your thing was discovered.
@@ -9037,7 +9176,7 @@ Number country_code "Private-Service - Country-Code" (G_heater) {channel="miio:b
 
 
 
-### <a name="Country-Servers">Country Servers</a>
+### Country Servers
 
 Known country Servers: cn, de, i2, ru, sg, us
 
