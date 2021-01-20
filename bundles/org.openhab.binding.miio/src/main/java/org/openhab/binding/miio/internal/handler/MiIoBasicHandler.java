@@ -509,10 +509,10 @@ public class MiIoBasicHandler extends MiIoAbstractHandler {
                     para.size(), res.size(), para, res);
             return;
         }
-        for (int i = 0; i < para.size(); i++) {
+        for (int i = 0; i < res.size(); i++) {
             // This is a miot parameter
             String param;
-            final JsonElement paraElement = para.get(i);
+            final JsonElement paraElement = res.get(i);
             if (paraElement.isJsonObject()) { // miot channel
                 param = paraElement.getAsJsonObject().get("did").getAsString();
             } else {
